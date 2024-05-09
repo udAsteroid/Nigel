@@ -47,7 +47,7 @@ load_dotenv()
 
 @bot.event
 async def on_ready():
-    print(f'We have logged in on docker as {bot.user}! Current time is {datetime.datetime.now(pytz.timezone("Australia/Melbourne")).hour}!')
+    print(f'We have logged in on docker with persistent data as {bot.user}! Current time is {datetime.datetime.now(pytz.timezone("Australia/Melbourne")).hour}!')
 
 @bot.event
 async def on_message(message):
