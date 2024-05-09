@@ -149,6 +149,7 @@ async def set_user_json(interaction: nextcord.Interaction, user: nextcord.Member
 
 @bot.slash_command(description="Ping!", guild_ids=[TESTING_GUILD_ID])
 async def ping(interaction: nextcord.Interaction):
+    await interaction.response.defer()
     await interaction.send("Pong!", files=[nextcord.File('gotosleep.mp4')])
 
 @bot.slash_command(description="At your service.", guild_ids=[TESTING_GUILD_ID])
