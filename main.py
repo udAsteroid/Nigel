@@ -106,11 +106,11 @@ async def looptask():
 @bot.slash_command(description="Add all users to JSON data file.", guild_ids=[TESTING_GUILD_ID])
 async def add_all_users(interaction: nextcord.Interaction):
     await interaction.response.defer()
-    if not os.path.isfile('users.json'):
-        with open('users.json', 'w') as f:
+    if not os.path.isfile('data/users.json'):
+        with open('data/users.json', 'w') as f:
             json.dump({}, f)
 
-    with open('users.json', 'r') as f:
+    with open('data/users.json', 'r') as f:
         users = json.load(f)
         print("Loaded JSON!")
         print(interaction.guild.fetch_members())
@@ -123,7 +123,7 @@ async def add_all_users(interaction: nextcord.Interaction):
                 users[str(member.id)]['username'] = member.name
                 print(f"Added data for {member.id} ({member.name})!")
 
-    with open('users.json', 'w') as f:
+    with open('data/users.json', 'w') as f:
         json.dump(users, f, indent=4)
     await interaction.followup.send("All users have been added to the JSON data file.")
 
@@ -132,15 +132,15 @@ async def set_user_json(interaction: nextcord.Interaction, user: nextcord.Member
     if not interaction.user.guild_permissions.administrator:
         await interaction.response.send_message("You are not authorized to run this command.", ephemeral=True)
     else:
-        if not os.path.isfile('users.json'):
+        if not os.path.isfile('data/users.json'):
             await interaction.response.send_message("There is no user JSON file! Run `/add_all_users`.")
         else:
-            with open('users.json', 'r') as f:
+            with open('data/users.json', 'r') as f:
                 users = json.load(f)
                 if str(user.id) in users:
                     users[str(user.id)][var] = val
                     users[str(user.id)]["messages"] = int(users[str(user.id)]["messages"])
-                    with open('users.json', 'w') as f:
+                    with open('data/users.json', 'w') as f:
                         json.dump(users, f, indent=4)
                     msg = "Successfully set %s to %s for %s!" % (var, val, user.name)
                     await interaction.response.send_message(msg)
@@ -168,10 +168,10 @@ async def blessing(interaction: nextcord.Interaction):
 
 @bot.slash_command(description="Rank members based on their messages", guild_ids=[TESTING_GUILD_ID])
 async def rank_members(interaction: nextcord.Interaction):
-    if not os.path.isfile('users.json'):
+    if not os.path.isfile('data/users.json'):
         await interaction.response.send_message("There is no user JSON file! Run `/add_all_users`.")
     else:
-        with open('users.json', 'r') as f:
+        with open('data/users.json', 'r') as f:
             users = json.load(f)
             sorted_users = sorted(users.items(), key=lambda x: x[1]['messages'], reverse=True)
             rank = 1
