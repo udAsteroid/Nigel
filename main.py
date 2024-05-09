@@ -51,11 +51,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if not os.path.isfile('users.json'):
-        with open('users.json', 'w') as f:
+    if not os.path.isfile('data/users.json'):
+        with open('data/users.json', 'w') as f:
             json.dump({}, f)
 
-    with open('users.json', 'r') as f:
+    with open('data/users.json', 'r') as f:
         users = json.load(f)
 
     if message.author.bot:
@@ -68,7 +68,7 @@ async def on_message(message):
 
     users[str(message.author.id)]['messages'] += 1
 
-    with open('users.json', 'w') as f:
+    with open('data/users.json', 'w') as f:
         json.dump(users, f, indent=4)
 
     await bot.process_commands(message)
