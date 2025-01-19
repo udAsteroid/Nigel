@@ -90,6 +90,7 @@ async def looptask():
         if not moonperms.read_messages:
             await moonchannel.set_permissions(role, read_messages=True)
             embed=nextcord.Embed(title="As the clock strikes twelve, it opens...", description=random.choice(moondescs), color=0x610085)
+            print("Attempting to send compressed go to sleep...")
             await moonchannel.send(embed=embed, files=[nextcord.File('gotosleepcompressed.mp4')])
             await moonchannel.edit(name=moonemoji())
     
