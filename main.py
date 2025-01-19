@@ -90,7 +90,7 @@ async def looptask():
         if not moonperms.read_messages:
             await moonchannel.set_permissions(role, read_messages=True)
             embed=nextcord.Embed(title="As the clock strikes twelve, it opens...", description=random.choice(moondescs), color=0x610085)
-            await moonchannel.send(embed=embed, files=[nextcord.File('gotosleep.mp4')])
+            await moonchannel.send(embed=embed, files=[nextcord.File('gotosleepcompressed.mp4')])
             await moonchannel.edit(name=moonemoji())
     
     # STAR
@@ -150,7 +150,12 @@ async def set_user_json(interaction: nextcord.Interaction, user: nextcord.Member
 @bot.slash_command(description="Ping!", guild_ids=[TESTING_GUILD_ID])
 async def ping(interaction: nextcord.Interaction):
     await interaction.response.defer()
-    await interaction.send("Pong!", files=[nextcord.File('gotosleep.mp4')])
+    await interaction.send("Pong!")
+
+@bot.slash_command(description="Sends the gotosleep video!", guild_ids=[TESTING_GUILD_ID])
+async def gotosleep(interaction: nextcord.Interaction):
+    await interaction.response.defer()
+    await interaction.send(files=[nextcord.File('gotosleepcompressed.mp4')])
 
 @bot.slash_command(description="At your service.", guild_ids=[TESTING_GUILD_ID])
 async def nigelbillingsley(interaction: nextcord.Interaction):
